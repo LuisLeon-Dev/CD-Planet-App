@@ -10,6 +10,7 @@
 @use "./scss/components/itemListContainer";
 @use "./scss/components/cardComponent";
 @use "./scss/components/itemDetail";
+@use "./scss/components/hero";
 
 /*Layout*/
 @use "./scss/layout/navBar";
@@ -19,3 +20,5 @@
 @use "./scss/pages/aboutUs";
 @use "./scss/pages/category";
 @use "./scss/pages/cart";
+@use "./scss/pages/home";
+@use "./scss/pages/notFound";

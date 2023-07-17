@@ -1,0 +1,37 @@
+.heroSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 25px;
+  &__img {
+    width: 500px;
+    height: 500px;
+  }
+  &__button {
+    padding: 8px 20px;
+    background-color: #62218d;
+    color: #fff;
+    font-size: 14px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #c079ef;
+      color: rgb(21, 21, 21);
+      transition: ease 1s;
+    }
+    a {
+      color: #fff;
+    }
+  }
+  &__info {
+    padding: 20px;
+  }
+  &__title {
+    font-weight: var(--montserrat-bold);
+  }
+  &__subtitle {
+    font-size: 18px;
+  }
+}

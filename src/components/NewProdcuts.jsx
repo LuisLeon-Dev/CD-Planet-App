@@ -1,35 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 /*Firestore */
 import { db } from "../services/firebaseConfig";
 import { collection, query, getDocs, where } from "firebase/firestore";
 
-/*Components*/
-import Card from "../components/Card";
+//Component
+import Card from "./Card";
 
-const CategoryPage = () => {
-  const { genre } = useParams();
-
+const NewProdcuts = () => {
   const [product, setProduct] = useState([]);
 
   useEffect(() => {
     const getProduct = async () => {
-      const q = query(collection(db, "discs"), where("genre", "==", genre));
+      const q = query(
+        collection(db, "discs"),
+        where("artist", "==", "Jose Madero")
+      );
       const docs = [];
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         docs.push({ ...doc.data(), id: doc.id });
       });
+      console.log(docs);
       setProduct(docs);
     };
     getProduct();
-  }, [genre]);
+  }, []);
 
   return (
-    <>
-      <h2 className="title">Store Products </h2>
+    <div>
+      <h2 className="title">New in the store</h2>
+
       <div className="items">
         {product.map((data) => {
           return (
@@ -41,8 +43,8 @@ const CategoryPage = () => {
           );
         })}
       </div>
-    </>
+    </div>
   );
 };
 
-export default CategoryPage;
+export default NewProdcuts;
