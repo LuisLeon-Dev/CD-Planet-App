@@ -1,0 +1,47 @@
+.detailContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  &__img {
+    width: 400px;
+    height: 400px;
+  }
+
+  .albumInfo {
+    &__title {
+      font-weight: var(--montserrat-bold);
+    }
+    &__artist {
+      font-weight: var(--montserrat-semiBold);
+      font-size: 18px;
+    }
+    p {
+      margin: 10px 0;
+    }
+  }
+
+  .checkOut {
+    &__price {
+      font-size: 36px;
+      font-weight: var(--montserrat-semiBold);
+      margin-top: 10px;
+    }
+    &__button {
+      width: 100%;
+      padding: 8px 12px;
+      background-color: #62218d;
+      color: #fff;
+      font-size: 14px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #c079ef;
+        color: rgb(21, 21, 21);
+        transition: ease 1s;
+      }
+    }
+  }
+}

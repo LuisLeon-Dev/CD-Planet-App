@@ -1,0 +1,52 @@
+.card {
+  width: 300px;
+  color: #000;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &__product-img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+  }
+
+  &__product-name {
+    font-size: 18px;
+    margin-top: 10px;
+    font-weight: var(--montserrat-semiBold);
+  }
+
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 15px;
+  }
+
+  &__producto-nameArtist {
+    font-size: 16px;
+  }
+  &__product-price {
+    font-size: 20px;
+    font-weight: var(--montserrat-bold);
+  }
+
+  &__button {
+    width: 100%;
+    padding: 8px 12px;
+    background-color: #62218d;
+    color: #fff;
+    font-size: 14px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 10px;
+
+    &:hover {
+      background-color: #c079ef;
+      color: rgb(21, 21, 21);
+      transition: ease 1s;
+    }
+  }
+}

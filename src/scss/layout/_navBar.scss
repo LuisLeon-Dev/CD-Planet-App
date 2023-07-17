@@ -1,0 +1,36 @@
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navBar {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+
+  &__logo {
+    width: 75px;
+    height: 75px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-family: var(--logo-font);
+  }
+  &__options {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    font-weight: var(--montserrat-light);
+
+    a {
+      color: #1d1d1d;
+      font-weight: var(--montserrat-regular);
+      &:hover {
+        color: #666666;
+      }
+    }
+  }
+}

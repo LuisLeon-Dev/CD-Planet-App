@@ -1,0 +1,21 @@
+/*Base*/
+@use "./scss/base/base";
+@use "./scss/base/reset";
+
+/*Utilities*/
+@use "./scss/utilities/variables";
+
+/*Components*/
+@use "./scss/components/cartWidget";
+@use "./scss/components/itemListContainer";
+@use "./scss/components/cardComponent";
+@use "./scss/components/itemDetail";
+
+/*Layout*/
+@use "./scss/layout/navBar";
+@use "./scss/layout/footer";
+
+/*Pages*/
+@use "./scss/pages/aboutUs";
+@use "./scss/pages/category";
+@use "./scss/pages/cart";
