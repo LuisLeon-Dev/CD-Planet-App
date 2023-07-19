@@ -8,3 +8,9 @@ Para poder inicializar la aplicacion desde un entorno local. Debera seguir los s
 
 npm install
 npm run dev
+
+dependencias a instalar
+npm install react-bootstrap bootstrap
+npm install sass
+npm install react-router-dom
+npm install --save-dev @iconify/react
