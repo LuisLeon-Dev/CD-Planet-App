@@ -11,3 +11,37 @@
   gap: 25px;
   margin-bottom: 25px;
 }
+
+.cart-items {
+  list-style-type: none;
+  padding: 0;
+
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+    span {
+      flex-grow: 1;
+    }
+
+    button {
+      padding: 5px 10px;
+      background-color: #f44336;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #d32f2f;
+      }
+    }
+  }
+}
+
+.total {
+  margin-top: 20px;
+  font-weight: bold;
+  text-align: right;
+}

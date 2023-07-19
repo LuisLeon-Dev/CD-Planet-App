@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState, useContext } from "react";
 
 /*Firestore */
 import { db } from "../services/firebaseConfig";
@@ -8,7 +7,10 @@ import { collection, query, getDocs, where } from "firebase/firestore";
 //Component
 import Card from "./Card";
 
+import { CartContext } from "../context/CartContext";
+
 const NewProdcuts = () => {
+  const { addToCart } = useContext(CartContext);
   const [product, setProduct] = useState([]);
 
   useEffect(() => {
@@ -22,7 +24,6 @@ const NewProdcuts = () => {
       querySnapshot.forEach((doc) => {
         docs.push({ ...doc.data(), id: doc.id });
       });
-      console.log(docs);
       setProduct(docs);
     };
     getProduct();
@@ -33,12 +34,10 @@ const NewProdcuts = () => {
       <h2 className="title">New in the store</h2>
 
       <div className="items">
-        {product.map((data) => {
+        {product.map((product) => {
           return (
-            <div key={data.id}>
-              <Link to={`/detail/${data.id}`}>
-                <Card data={data} />
-              </Link>
+            <div key={product.id}>
+              <Card product={product} addToCart={addToCart} />
             </div>
           );
         })}

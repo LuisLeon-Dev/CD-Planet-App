@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 //Firebase
 import { db } from "../services/firebaseConfig";
 import { collection, query, getDocs } from "firebase/firestore";
 
 //Components
 import Card from "./Card";
+import { CartContext } from "../context/CartContext";
 
 const ItemListContainer = () => {
+  const { addToCart } = useContext(CartContext);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -19,7 +20,6 @@ const ItemListContainer = () => {
       querySnapshot.forEach((doc) => {
         docs.push({ ...doc.data(), id: doc.id });
       });
-      console.log(docs);
       setProducts(docs);
     };
     getProducts();
@@ -31,9 +31,7 @@ const ItemListContainer = () => {
         {products.map((product) => {
           return (
             <div key={product.id}>
-              <Link to={`/detail/${product.id}`}>
-                <Card data={product} />
-              </Link>
+              <Card product={product} addToCart={addToCart} />
             </div>
           );
         })}

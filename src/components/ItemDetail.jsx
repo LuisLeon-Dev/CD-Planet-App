@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
 const ItemDetail = ({ data }) => {
   const songsArray = data.songsList;
+  const { addToCart } = useContext(CartContext);
 
   return (
     <div className="detailContainer">
@@ -13,7 +15,9 @@ const ItemDetail = ({ data }) => {
         ></img>
         <div className="checkOut">
           <p className="checkOut__price">$ {data.price}</p>
-          <button className="checkOut__button">Add to Cart</button>
+          <button className="checkOut__button" onClick={addToCart}>
+            Add to Cart
+          </button>
         </div>
       </div>
       <div className="albumInfo">

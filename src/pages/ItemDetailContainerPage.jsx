@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 
 /*Firestore */
@@ -13,10 +13,11 @@ import {
 
 /*Components*/
 import ItemDetail from "../components/itemDetail";
+import { CartContext } from "../context/CartContext";
 
 const ItemDetailContainerPage = () => {
   const { id } = useParams();
-
+  const { addToCart } = useContext(CartContext);
   const [product, setProduct] = useState([]);
 
   useEffect(() => {
@@ -27,7 +28,7 @@ const ItemDetailContainerPage = () => {
       querySnapshot.forEach((doc) => {
         docs.push({ ...doc.data(), id: doc.id });
       });
-      console.log(docs);
+
       setProduct(docs);
     };
     getProduct();
@@ -38,7 +39,7 @@ const ItemDetailContainerPage = () => {
       {product.map((data) => {
         return (
           <div key={data.id}>
-            <ItemDetail data={data} />;
+            <ItemDetail data={data} addToCart={addToCart} />;
           </div>
         );
       })}

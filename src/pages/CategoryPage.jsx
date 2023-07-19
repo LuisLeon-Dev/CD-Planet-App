@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -9,9 +9,11 @@ import { collection, query, getDocs, where } from "firebase/firestore";
 /*Components*/
 import Card from "../components/Card";
 
+import { CartContext } from "../context/CartContext";
+
 const CategoryPage = () => {
   const { genre } = useParams();
-
+  const { addToCart } = useContext(CartContext);
   const [product, setProduct] = useState([]);
 
   useEffect(() => {
@@ -31,12 +33,10 @@ const CategoryPage = () => {
     <>
       <h2 className="title">Store Products </h2>
       <div className="items">
-        {product.map((data) => {
+        {product.map((product) => {
           return (
-            <div key={data.id}>
-              <Link to={`/detail/${data.id}`}>
-                <Card data={data} />
-              </Link>
+            <div key={product.id}>
+              <Card product={product} addToCart={addToCart} />
             </div>
           );
         })}

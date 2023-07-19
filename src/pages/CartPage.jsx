@@ -1,75 +1,108 @@
-import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+import React, { useContext, useState } from "react";
+import { CartContext } from "../context/CartContext";
 
-import Alert from "react-bootstrap/Alert";
+import MessageSuccess from "../components/MessageSuccess";
+
+//firebase
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../services/firebaseConfig";
+
+const initialState = {
+  name: "",
+  email: "",
+  confirmEmail: "",
+};
 
 const CartPage = () => {
-  const initialValues = {
-    name: "",
-    email: "",
-    confirmEmail: "",
+  const [values, setValues] = useState(initialState);
+  const [purchaseID, setPurchaseID] = useState(null);
+
+  const { cartItems, removeFromCart, calculateTotalPrice } =
+    useContext(CartContext);
+
+  const handleOnChange = (e) => {
+    const { value, name } = e.target;
+    setValues({ ...values, [name]: value });
   };
 
-  const validationSchema = Yup.object({
-    name: Yup.string().required("Name is required"),
-    email: Yup.string()
-      .email("Invalid email address")
-      .required("Email is required"),
-    confirmEmail: Yup.string()
-      .oneOf([Yup.ref("email"), null], "Emails must match")
-      .required("Email confirmation is required"),
-  });
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    // Add a new document with a generated id.
+    const docRef = await addDoc(collection(db, "purchasesCollection"), {
+      values,
+    });
 
-  const handleSubmit = (values) => {
-    console.log(values);
+    setPurchaseID(docRef.id);
+    setValues(initialState);
   };
+
   return (
     <div>
       <h2 className="title">Complete your purchase</h2>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        <div className="formContainer">
-          <Form>
-            <div>
-              <label htmlFor="name">Name:</label>
-              <Field type="text" id="name" name="name" />
-              <ErrorMessage
-                name="name"
-                component="div"
-                className="erorrMessage"
-              />
-            </div>
+      <div>
+        {cartItems.length === 0 ? (
+          <p className="warning">No elements selected</p>
+        ) : (
+          <div>
+            <ul className="cart-items">
+              {cartItems.map((product) => (
+                <li key={product.id}>
+                  <p>{product.title} </p>
+                  <p>{product.artist}</p>
+                  <p>{product.price}</p>
 
-            <div>
-              <label htmlFor="email">Email:</label>
-              <Field type="email" id="email" name="email" />
-              <ErrorMessage
-                name="email"
-                component="div"
-                className="erorrMessage"
-              />
-            </div>
+                  <button onClick={() => removeFromCart(product.id)}>
+                    Quitar
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <p className="total">Total: {calculateTotalPrice()}</p>
+          </div>
+        )}
+      </div>
 
-            <div>
-              <label htmlFor="confirmEmail">Confirm Email:</label>
-              <Field type="email" id="confirmEmail" name="confirmEmail" />
-              <ErrorMessage
-                name="confirmEmail"
-                component="div"
-                className="erorrMessage"
-              />
-            </div>
+      <div className="formContainer">
+        <form onSubmit={onSubmit}>
+          <div>
+            <label htmlFor="name">Name:</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              values={values.name}
+              onChange={handleOnChange}
+            />
+          </div>
 
-            <button type="submit" className="card__button">
-              Submit
-            </button>
-          </Form>
-        </div>
-      </Formik>
+          <div>
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              values={values.email}
+              onChange={handleOnChange}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="confirmEmail">Confirm Email:</label>
+            <input
+              type="email"
+              id="confirmEmail"
+              name="confirmEmail"
+              values={values.confirmEmail}
+              onChange={handleOnChange}
+            />
+          </div>
+
+          <button type="submit" className="card__button">
+            Submit
+          </button>
+        </form>
+        {purchaseID ? <MessageSuccess purchaseID={purchaseID} /> : null}
+      </div>
     </div>
   );
 };
